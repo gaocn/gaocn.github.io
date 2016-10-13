@@ -77,7 +77,7 @@ ga_domain: www.govind.space
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
 sidebar-about-description: "Life is short. Live your dream. And share your passion."
-sidebar-avatar: /img/tmp_avater_Govind.png      # use absolute URL, seeing it's used in both `/` and `/about/`
+sidebar-avatar: /img/avater_Govind.png      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
 
