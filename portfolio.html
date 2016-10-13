@@ -1,0 +1,137 @@
+---
+layout: default
+title:
+description:
+---
+
+<!DOCTYPE html>
+<html class="no-js">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Govind - me</title>
+		<link rel="stylesheet" type="text/css" href="/css/timeline.css" />
+		<script src="/js/modernizr.custom.js"></script>
+	</head>
+	<body>
+		<div class="container" style="margin:0;padding:0;width:100%;">
+			<header>
+				<img width="190" height="190" src="/img/portfolio/govind_avatar2.png">
+				<h1>Govind</h1>
+				<p>曾经以为是不可逾越的巅峰，<br>
+					最终只是脚下起跑的一块垫脚石。我还在路上......</p>
+			</header>
+			<div class="main">
+				<ul class="cbp_tmtimeline">
+					<li>
+						<div class="cbp_tmlabel">
+							<h2 id="boxoffice">What open source project should I contribute to?</h2>
+							<time>2016.10</time>
+							<img src="/img/portfolio/github.sorce.png">
+							<ul>
+								<li>
+									What open source project can you recommend I start contributing to? Many of these people read my First Timers Only post and are hoping to find a project that is friendly to newcomers making pull requests.
+								</li>
+								<li class="skill">
+									<span class="cbp_tmicon-phone"></span>
+									<span class="i-react"></span>
+									<span><b>OpenSource</b></span>
+									<span class="link"><a target="_blank" href="https://medium.com/@kentcdodds/what-open-source-project-should-i-contribute-to-7d50ecfe1cb4#.chkb8q4kr">瞅瞅</a></span>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li>
+						<div class="cbp_tmlabel">
+							<h2 id="boxoffice">Reflections of an "Old" Programmer</h2>
+							<time>2016.10</time>
+							<img src="/img/portfolio/career-stages-programmer.png">
+							<ul>
+								<li>
+									重庆森林里的台词：秋刀鱼会过期，肉罐头会过期，连保鲜纸都会过期，我开始怀疑在这个世界上还有什么东西是不会过期的？如果记忆是一个罐头的话，我希望这一个罐头不会过期；如果一定要加一个日子的话，我希望是“一万年”
+									知识、技能是会过期的，有的保质期短、有的保质期长。身为“老”程序员的作者认为，从长远来看，应该多投资一些不容易过期的知识，比如算法、信息安全、架构、性能优化等。
+								</li>
+								<li class="skill">
+									<span class="cbp_tmicon-phone"></span>
+									<span class="i-react"></span>
+									<span><b>Knowledge</b></span>
+									<span class="link"><a target="_blank" href="http://www.bennorthrop.com/Essays/2016/reflections-of-an-old-programmer.php?utm_source=wanqu.co&utm_campaign=Wanqu+Daily&utm_medium=website">瞅瞅</a></span>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li>
+						<div class="cbp_tmlabel">
+							<h2 id="boxoffice">The 5 Elements of Effective Thinking</h2>
+							<time>2016.10</time>
+							<img src="/img/portfolio/5_elements_of_thinking.png">
+							<ul>
+								<li>
+									The 5 Elements of Effective Thinking presents practical, lively, and inspiring ways for you to become more successful through better thinking. the idea is simple: You can learn how to think far better by adopting specific strategies. Brilliant people aren’t a special breed—they just use their minds differently. By using the straightforward and thought-provoking techniques in The 5 Elements of Effective Thinking, you will regularly find imagina-tive solutions to difficult challenges, and you will discover new ways of looking at your world and yourself—revealing previ-ously hidden opportunities.
+								</li>
+								<li class="skill">
+									<span class="cbp_tmicon-phone"></span>
+									<span class="i-react"></span>
+									<span><b>Knowledge</b></span>
+									<span class="link"><a target="_blank" href="https://courses.edx.org/courses/course-v1:UTAustinX+UT.9.10x+3T2016/courseware/ed583801f1e048b1a5eb5ac21bff383d/16d6d8dbabc344979e1fe4f5946abdf3/">瞅瞅</a></span>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<!--<li>
+						<div class="cbp_tmlabel">
+							<h2>SENOVA WebApp</h2>
+							<img src="images/senova.jpg">
+							<ul>
+								<li>《多媒体交互设计一》结课作业，以北汽“绅宝”为目标品牌，iPad 为主要平台进行的 App 设计，旨在用一种可交互的方式介绍“绅宝”车型。完全采用 Html5 技术开发，可添加至主屏幕离线运行。着力于触控交互体验的优化与优雅的动画设计。</li>
+								<li>Responsible : Front-End，Interaction，Product</li>
+								<li>Partner : ZOE-张瑜</li>
+								<li class="skill">
+									<span class="cbp_tmicon-html"></span>
+									<span class="fa fa-css3"></span>
+									<span><b>JS</b></span>
+									<span class="link"><a target="_blank" href="http://huangxuan.me/senova/">Link</a></span>
+								</li>
+							</ul>
+						</div>
+					</li>-->
+					{% if site.duoshuo_username %}
+					<li>
+						<div class="cbp_tmlabel">
+			                <!-- 多说评论框 start -->
+			                <div class="comment">
+			                    <div class="ds-thread"
+									data-thread-key="{{site.duoshuo_username}}/portfolio"
+			                        data-title="{{page.title}}"
+			                        data-url="{{site.url}}{{site.baseurl}}{{page.url}}" >
+			                    </div>
+			                </div>
+			                <!-- 多说评论框 end -->
+						</div>
+					</li>
+					{% endif %}
+				</ul>
+			</div>
+		</div>
+		{% if site.duoshuo_username %}
+		<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+		<script type="text/javascript">
+		    // dynamic User by Hux
+		    var _user = '{{site.duoshuo_username}}';
+
+		    // duoshuo comment query.
+		    var duoshuoQuery = {short_name: _user };
+		    (function() {
+		        var ds = document.createElement('script');
+		        ds.type = 'text/javascript';ds.async = true;
+		        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		        ds.charset = 'UTF-8';
+		        (document.getElementsByTagName('head')[0]
+		         || document.getElementsByTagName('body')[0]).appendChild(ds);
+		    })();
+		</script>
+		<!-- 多说公共JS代码 end -->
+		{% endif %}
+	</body>
+</html>
