@@ -1,10 +1,12 @@
 ---
-layout: page
-title: Makrdowm
-description:
-header-img: "img/post_bg/11.jpg"
+layout:     post
+title:      "Makrdowm"
+subtitle:   "Markdown入门必知必会语法"
+date:       2016-10-14
+author:     "Govind"
+header-img: "img/post_bg/20.jpg"
 tags:
-  - Makrdowm语法
+    - Markdown语法
 ---
 
 目录
@@ -65,7 +67,7 @@ Makrdowm无法指定图片的高宽，需要的话使用img标签实现。
 
 ***
 # 后记{#3}
-  
+
 
 [1]: http://daringfireball.net/projects/markdown/syntax          "markdown英文语法"
 [2]: http://wowubuntu.com/markdown/#list "markdown中文语法"
