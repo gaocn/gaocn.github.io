@@ -9,24 +9,16 @@ tags:
     - Markdown语法
 ---
 
-# 目录{#0}
-  - 1.[Markdown特点](#1)
-  - 2.[Markdown语法](#2)
-    * [列表](#2.1)
-    * [代码块](#2.2)
-    * [强调](#2.3)
-    * [链接](#2.4)
-    * [图片](#2.5)
-    * [锚点](#2.6)
-    * [自动连接](#2.7)
-    * [注脚](#2.8)
-  - 3.[后记](#3)
+[TOC]
+
+---
 
 
 # Markdown特点{#1}
 >We believe that writing is about content, about what you want to say – not about fancy formatting.       — Ulysses for Mac
 
 Markdown旨在简洁高效的文本编辑,让你专注于文字的编写，而不用花费太多时间在在文字排版上；正如Markdown作者所说：
+
 >Markdown is intended to be as easy-to-read and easy-to-write as is feasible.
 
 现在市面上的mardown插件很多，用于绘制流程图、时序图、公式等复杂的功能，现在想想这些是不是和Markdown的初衷相悖了呢！不管怎么样，众口难调，自己使用开心、满意就行。我心中的Markdown是简洁、高效的。
