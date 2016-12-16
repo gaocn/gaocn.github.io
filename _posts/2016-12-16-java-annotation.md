@@ -10,13 +10,14 @@ tags:
 ---
 
 
-##注解
+## 注解
 ### Annotation基础与使用
 java中元注解有四个：
 1. @Retention：注解的保留位置
 2. @Target:注解的作用目标
 3. @Document：说明该注解将被包含在javadoc中
 4. @Inherited：说明子类可以继承父类中的该注解
+
 ```
     例子：@interface是一个关键字，在设计annotations的时候必须把一 个类型定义为@interface
     @Target(ElementType.TYPE)
