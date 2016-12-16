@@ -47,8 +47,8 @@ SERIAL_EXECUTOR 串行线程池(例如：同一时刻有两个任务要处理，
 
 一个任务通过 execute(Runnable)方法被添加到线程池，任务就是一个 Runnable类型的对象，任务的执行方法就是 Runnable类型对象的run()方法。
 当一个任务通过execute(Runnable)方法欲添加到线程池时：
-1. 如果此时线程池中的数量小于corePoolSize，即使线程池中的
-线程都处于空闲状态，也要创建新的线程来处理被添加的任务。
+
+1. 如果此时线程池中的数量小于corePoolSize，即使线程池中的线程都处于空闲状态，也要创建新的线程来处理被添加的任务。
 2. 如果此时线程池中的数量等于 corePoolSize，但是缓冲队列 workQueue未满，那么任务被放入缓冲队列。
 3. 如果此时线程池中的数量大于corePoolSize，缓冲队列workQueue满，并且线程池中的数量小于maximumPoolSize，建新的线程来处理被添加的任务。
 4. 如果此时线程池中的数量大于corePoolSize，缓冲队列workQueue满，并且线程池中的数量等于maximumPoolSize，那么通过 handler所指定的策略来处理此任务。也就是：处理任务的优先级为：核心线程corePoolSize、任务队列workQueue、最大线程maximumPoolSize，如果三者都满了，使用handler处理被拒绝的任务。
@@ -59,14 +59,15 @@ SERIAL_EXECUTOR 串行线程池(例如：同一时刻有两个任务要处理，
 1. 当线程数小于核心线程数时，创建线程。
 2. 当线程数大于等于核心线程数，且任务队列未满时，将任务放入任务队列。
 3. 当线程数大于等于核心线程数，且任务队列已满
-    3-1. 若线程数小于最大线程数，创建线程
-    3-2. 若线程数等于最大线程数，抛出异常，拒绝任务
+    - 若线程数小于最大线程数，创建线程
+    - 若线程数等于最大线程数，抛出异常，拒绝任务
 
 ### ThreadPoolExecutor默认实现
 
 ### CachedThreadPool
 
 CachedThreadPool会创建一个缓存区，将初始化的线程缓存起来。会终止并且从缓存中移除已有60秒未被使用的线程。如果线程有可用的，就使用之前创建好的线程;如果线程没有可用的，就新创建线程。
+
 1. 重用：缓存型池子，先查看池中有没有以前建立的线程，如果有，就reuse；如果没有，就建一个新的线程加入池中
 2. 使用场景：缓存型池子通常用于执行一些生存期很短的异步型任务，因此在一些面向连接的daemon型SERVER中用得不多。
 3. 超时：能reuse的线程，必须是timeout IDLE内的池中线程，缺省timeout是60s，超过这个IDLE时长，线程实例将被终止及移出池。
@@ -91,6 +92,7 @@ CachedThreadPool会创建一个缓存区，将初始化的线程缓存起来。�
 ### FixedThreadPool
 
 在FixedThreadPool中，有一个固定大小的池。如果当前需要执行的任务超过池大小，那么多出的任务处于等待状态，直到有空闲下来的线程执行任务，如果当前需要执行的任务小于池大小，空闲的线程也不会去销毁。
+
 1. 重用：fixedThreadPool与cacheThreadPool差不多，也是能reuse就用，但不能随时建新的线程
 2. 固定数目：其独特之处在于，任意时间点，最多只能有固定数目的活动线程存在，此时如果有新的线程要建立，只能放在另外的队列中等待，直到当前的线程中某个线程终止直接被移出池子
 3. 超时：和cacheThreadPool不同，FixedThreadPool没有IDLE机制（可能也有，但既然文档没提，肯定非常长，类似依赖上层的TCP或UDP IDLE机制之类的），
@@ -115,6 +117,7 @@ public static ExecutorService newFixedThreadPool(int nThreads) {
 #### 源码分析：
 
 从方法的源代码看，cache池和fixed 池调用的是同一个底层池，只不过参数不同：
+
 1. fixed池线程数固定，并且是0秒IDLE（无IDLE）;
 2. cache池线程数支持0-Integer.MAX_VALUE(显然完全没考虑主机的资源承受能力），60秒IDLE;
 
@@ -186,5 +189,6 @@ SynchronousQueue内部并没有数据缓存空间，你不能调用peek()方法�
 
 例子中，ThreadPoolExecutor使用SynchronousQueue队列以确保如果现有线程无法接收任务(offer是失败)，将会创建新的线程来执行。
 队列的两种策略：
+
 1. 公平模式FIFO，双重队列实现，可减少可变性并避免饥饿现象，但会降低吞吐量；
 2. 非公平模式LIFO，双重栈实现；
