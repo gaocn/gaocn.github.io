@@ -15,45 +15,57 @@ Android 为了简化操作，提供了 AsyncTask 类来实现异步任务，并�
 AsyncTask 虽然提供了cancle( true ) 方法来停止任务，但是这个方法只是中断了这个线程，但是并不能真正意义上的停止任务，这也是很多人说 AsyncTask 的弊端。极容易造成内存溢出的。
 
 ###二种间接结束任务的方式：
+
 1. 判断标志位，类似Java中无法停止一个正在运行的线程，Android中的AsyncTask也是一样，为此需要设置一个标志位，并且在doInBackground中的关键步骤决定是都停止该任务；
 2. 使用Exception，从外部调用AsyncTask的cancel方法不能终止任务，同样调用一个线程的interrupt方法之后线程仍然运行，但是若该线程中调用过sleep或wait方法后，处于sleep或wait状态，则sleep或wait状态立即结束并且抛出InterruptException异常；因此若在AsyncTask的doInBackground方法中调用了sleep或wait方法，则在UI线程中调用任务实例的cancel方法后，sleep或wait立即结束并且抛出InterruptedException异常，但是如果捕获该异常的代码后面还有其他代码，则这些代码还会继续执行。
+
 ###AsyncTask串行处理任务和并行处理任务
+
 THREAD_POOL_EXECUTOR 并行线程池(ThreadPoolExecutor实现线程池，然而对于多用户、高并发的应用来说，提交的任务数量非常巨大，一定会比允许的最大线程数多很多。为了解决这个问题，必须要引入排队机制，或者是在内存中，或者是在硬盘等容量很大的存储介质中。ThreadPoolExecutor只支持任务在内存中排队，通过BlockingQueue暂存还没有来得及执行的任务)
 
-    ```
-           ThreadPoolExecutor(int corePoolSize,
-                              int maximumPoolSize,
-                              long keepAliveTime,
-                              TimeUnit unit,
-                              BlockingQueue<Runnable> workQueue,
-                              ThreadFactory threadFactory)
-    ```
-    1. corePoolSize
-        线程池的基本大小，即在没有任务需要执行的时候线程池的大小，并且只有在工作队列满了的情况下才会创建超出这个数量的线程。这里需要注意的是：在刚刚创建ThreadPoolExecutor的时候，线程并不会立即启动，而是要等到有任务提交时才会启动，除非调用了prestartCoreThread/prestartAllCoreThreads事先启动核心线程。再考虑到keepAliveTime和allowCoreThreadTimeOut超时参数的影响，所以没有任务需要执行的时候，线程池的大小不一定是corePoolSize。
-    2. maximumPoolSize
-        线程池中允许的最大线程数，线程池中的当前线程数目不会超过该值。如果队列中任务已满，并且当前线程个数小于maximumPoolSize，那么会创建新的线程来执行任务。这里值得一提的是largestPoolSize，该变量记录了线程池在整个生命周期中曾经出现的最大线程个数。为什么说是曾经呢？因为线程池创建之后，可以调用setMaximumPoolSize()改变运行的最大线程的数目。
-    3. poolSize
-        线程池中当前线程的数量，当该值为0的时候，意味着没有任何线程，线程池会终止；同一时刻，poolSize不会超过maximumPoolSize。
-    4. keepAliveTime
-        当线程空闲时间达到keepAliveTime，该线程会退出，直到线程数量等于corePoolSize。如果allowCoreThreadTimeout设置为true，则所有线程均会退出直到线程数量为0。
+```
+       ThreadPoolExecutor(int corePoolSize,
+                          int maximumPoolSize,
+                          long keepAliveTime,
+                          TimeUnit unit,
+                          BlockingQueue<Runnable> workQueue,
+                          ThreadFactory threadFactory)
+```
+
+1. corePoolSize
+    线程池的基本大小，即在没有任务需要执行的时候线程池的大小，并且只有在工作队列满了的情况下才会创建超出这个数量的线程。这里需要注意的是：在刚刚创建ThreadPoolExecutor的时候，线程并不会立即启动，而是要等到有任务提交时才会启动，除非调用了prestartCoreThread/prestartAllCoreThreads事先启动核心线程。再考虑到keepAliveTime和allowCoreThreadTimeOut超时参数的影响，所以没有任务需要执行的时候，线程池的大小不一定是corePoolSize。
+2. maximumPoolSize
+    线程池中允许的最大线程数，线程池中的当前线程数目不会超过该值。如果队列中任务已满，并且当前线程个数小于maximumPoolSize，那么会创建新的线程来执行任务。这里值得一提的是largestPoolSize，该变量记录了线程池在整个生命周期中曾经出现的最大线程个数。为什么说是曾经呢？因为线程池创建之后，可以调用setMaximumPoolSize()改变运行的最大线程的数目。
+3. poolSize
+    线程池中当前线程的数量，当该值为0的时候，意味着没有任何线程，线程池会终止；同一时刻，poolSize不会超过maximumPoolSize。
+4. keepAliveTime
+    当线程空闲时间达到keepAliveTime，该线程会退出，直到线程数量等于corePoolSize。如果allowCoreThreadTimeout设置为true，则所有线程均会退出直到线程数量为0。
+
 SERIAL_EXECUTOR 串行线程池(例如：同一时刻有两个任务要处理，AsyncTask会先执行第一个任务，等第一个任务执行结束，然后才会执行第二个任务。)
 
 ###线程创建规则
-    一个任务通过 execute(Runnable)方法被添加到线程池，任务就是一个 Runnable类型的对象，任务的执行方法就是 Runnable类型对象的run()方法。
-    当一个任务通过execute(Runnable)方法欲添加到线程池时：
-    1. 如果此时线程池中的数量小于corePoolSize，即使线程池中的线程都处于空闲状态，也要创建新的线程来处理被添加的任务。
-    2. 如果此时线程池中的数量等于 corePoolSize，但是缓冲队列 workQueue未满，那么任务被放入缓冲队列。
-    3. 如果此时线程池中的数量大于corePoolSize，缓冲队列workQueue满，并且线程池中的数量小于maximumPoolSize，建新的线程来处理被添加的任务。
-    4. 如果此时线程池中的数量大于corePoolSize，缓冲队列workQueue满，并且线程池中的数量等于maximumPoolSize，那么通过 handler所指定的策略来处理此任务。也就是：处理任务的优先级为：核心线程corePoolSize、任务队列workQueue、最大线程maximumPoolSize，如果三者都满了，使用handler处理被拒绝的任务。
-    5. 当线程池中的线程数量大于 corePoolSize时，如果某线程空闲时间超过keepAliveTime，线程将被终止。这样，线程池可以动态的调整池中的线程数。
+
+一个任务通过 execute(Runnable)方法被添加到线程池，任务就是一个 Runnable类型的对象，任务的执行方法就是 Runnable类型对象的run()方法。
+当一个任务通过execute(Runnable)方法欲添加到线程池时：
+1. 如果此时线程池中的数量小于corePoolSize，即使线程池中的
+线程都处于空闲状态，也要创建新的线程来处理被添加的任务。
+2. 如果此时线程池中的数量等于 corePoolSize，但是缓冲队列 workQueue未满，那么任务被放入缓冲队列。
+3. 如果此时线程池中的数量大于corePoolSize，缓冲队列workQueue满，并且线程池中的数量小于maximumPoolSize，建新的线程来处理被添加的任务。
+4. 如果此时线程池中的数量大于corePoolSize，缓冲队列workQueue满，并且线程池中的数量等于maximumPoolSize，那么通过 handler所指定的策略来处理此任务。也就是：处理任务的优先级为：核心线程corePoolSize、任务队列workQueue、最大线程maximumPoolSize，如果三者都满了，使用handler处理被拒绝的任务。
+5. 当线程池中的线程数量大于 corePoolSize时，如果某线程空闲时间超过keepAliveTime，线程将被终止。这样，线程池可以动态的调整池中的线程数。
+
 ###线程池按以下行为执行任务
-    1. 当线程数小于核心线程数时，创建线程。
-    2. 当线程数大于等于核心线程数，且任务队列未满时，将任务放入任务队列。
-    3. 当线程数大于等于核心线程数，且任务队列已满
-        3-1. 若线程数小于最大线程数，创建线程
-        3-2. 若线程数等于最大线程数，抛出异常，拒绝任务
+
+1. 当线程数小于核心线程数时，创建线程。
+2. 当线程数大于等于核心线程数，且任务队列未满时，将任务放入任务队列。
+3. 当线程数大于等于核心线程数，且任务队列已满
+    3-1. 若线程数小于最大线程数，创建线程
+    3-2. 若线程数等于最大线程数，抛出异常，拒绝任务
+
 ###ThreadPoolExecutor默认实现
+
 ###CachedThreadPool
+
 CachedThreadPool会创建一个缓存区，将初始化的线程缓存起来。会终止并且从缓存中移除已有60秒未被使用的线程。如果线程有可用的，就使用之前创建好的线程;如果线程没有可用的，就新创建线程。
 1. 重用：缓存型池子，先查看池中有没有以前建立的线程，如果有，就reuse；如果没有，就建一个新的线程加入池中
 2. 使用场景：缓存型池子通常用于执行一些生存期很短的异步型任务，因此在一些面向连接的daemon型SERVER中用得不多。
@@ -75,7 +87,9 @@ CachedThreadPool会创建一个缓存区，将初始化的线程缓存起来。�
  }
 
 ```
+
 ###FixedThreadPool
+
 在FixedThreadPool中，有一个固定大小的池。如果当前需要执行的任务超过池大小，那么多出的任务处于等待状态，直到有空闲下来的线程执行任务，如果当前需要执行的任务小于池大小，空闲的线程也不会去销毁。
 1. 重用：fixedThreadPool与cacheThreadPool差不多，也是能reuse就用，但不能随时建新的线程
 2. 固定数目：其独特之处在于，任意时间点，最多只能有固定数目的活动线程存在，此时如果有新的线程要建立，只能放在另外的队列中等待，直到当前的线程中某个线程终止直接被移出池子
@@ -97,13 +111,16 @@ public static ExecutorService newFixedThreadPool(int nThreads) {
  }
 
 ```
+
 ####源码分析：
-    从方法的源代码看，cache池和fixed 池调用的是同一个底层池，只不过参数不同：
-    1. fixed池线程数固定，并且是0秒IDLE（无IDLE）;
-    2. cache池线程数支持0-Integer.MAX_VALUE(显然完全没考虑主机的资源承受能力），60秒IDLE;
+
+从方法的源代码看，cache池和fixed 池调用的是同一个底层池，只不过参数不同：
+1. fixed池线程数固定，并且是0秒IDLE（无IDLE）;
+2. cache池线程数支持0-Integer.MAX_VALUE(显然完全没考虑主机的资源承受能力），60秒IDLE;
 
 ####SingleThreadExecutor
 SingleThreadExecutor得到的是一个单个的线程，这个线程会保证你的任务执行完成。<font color="red">如果当前线程意外终止，会创建一个新线程继续执行任务</font>，这和我们直接创建线程不同，也和newFixedThreadPool(1)不同。
+
 ```
 public static ExecutorService newSingleThreadExecutor() {
      return new FinalizableDelegatedExecutorService
@@ -138,8 +155,11 @@ public static ExecutorService newSingleThreadExecutor() {
  }
 
 ```
+
 ###ScheduledThreadPool
+
 ScheduledThreadPool是一个固定大小的线程池，与FixedThreadPool类似，执行的任务是定时执行。
+
 ```
 public static ScheduledExecutorService newScheduledThreadPool(
          int corePoolSize, ThreadFactory threadFactory) {
@@ -150,16 +170,20 @@ public static ScheduledExecutorService newScheduledThreadPool(
      return new ScheduledThreadPoolExecutor(corePoolSize);
  }
 ```
+
 ###并行执行器使用的SynchronousQueue
+
 SynchronousQueue采用生产者-消费者模式(最多只生产一个产品)，特别之处是内部没有容器，一个生产者线程，当生产了产品(put)后，若没有消费者消费该产品，此生产线程必须阻塞，等待一个消费者线程调用take消费产品(消费者消费产品的过程称之为数据传递)，take操作会唤醒生产者继续生产下一个产品；这个过程称为**一次配对过程**
 SynchronousQueue内部并没有数据缓存空间，你不能调用peek()方法来看队列中是否有数据元素，因为数据元素只有当你试着取走的时候才可能存在，不取走而只想偷窥一下是不行的，当然遍历这个队列的操作也是不允许的。队列头元素是第一个排队要插入数据的线程，而不是要交换的数据。数据是在配对的生产者和消费者线程之间直接传递的，并不会将数据缓冲数据到队列中。类似现实生活中的"火把传递":一个火把传递地他人,需要2个人"触手可及"才行. 因为这种策略,最终导致队列中并没有一个真正的元素;
 适用场景：常用于一个productor多个consumer的场景；传递性设计，即一个线程中运行的对象要将某些信息、事件或任务传递给另一个线程中运行的对象，它必须与该线程同步!
+
 ```
     private static final BlockingQueue<Runnable> sPoolWorkQueue = new SynchronousQueue<Runnable>();
 
 	public static final ThreadPoolExecutor mCachedSerialExecutor = new ThreadPoolExecutor(CORE_POOL_SIZE,
 			MAXIMUM_POOL_SIZE, KEEP_ALIVE, TimeUnit.SECONDS, sPoolWorkQueue, sThreadFactory);
 ```
+
 例子中，ThreadPoolExecutor使用SynchronousQueue队列以确保如果现有线程无法接收任务(offer是失败)，将会创建新的线程来执行。
 队列的两种策略：
 1. 公平模式FIFO，双重队列实现，可减少可变性并避免饥饿现象，但会降低吞吐量；
