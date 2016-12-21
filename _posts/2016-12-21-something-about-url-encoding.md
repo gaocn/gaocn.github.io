@@ -116,6 +116,19 @@ PS：URL重写时在进行匹配操作之前不能将URL解码。
 ### 确保URL正确的被Encoding
 
 1. 构建URL时针对每部分(path，query)分别进行Encoding;
+
+```
+  URI转字符串
+      Uri.Builder builder = new Uri.Builder();  
+      builder.encodedPath("http://xxx.xxx.xxx.xxx:xxxx");  
+      builder.appendEncodedPath("xxx/xxx/xxx");  
+      builder.appendQueryParameter("key", "value");  
+      String url = builder.toString();  
+
+  字符串转URI
+      Uri.Builder builder = Uri.parse(url).buildUpon();  
+```
+
 2. Make sure your URL-rewrite filters deal with URLs correctly. [Url Rewrite Filter](http://tuckey.org/urlrewrite/) is a URL rewriting filter we use in [Seam](http://www.seamframework.org/) to transform pretty URLs into application-dependent URLs.
 3. Using Apache mod-rewrite correctly.
 
