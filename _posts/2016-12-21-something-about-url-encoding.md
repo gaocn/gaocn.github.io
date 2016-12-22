@@ -69,13 +69,13 @@ PS：URL重写时在进行匹配操作之前不能将URL解码。
 
 #### 对URLEncoder,Decoder的误解
 
-><font size="6">Do not use</font> java.net.URLEncoder or java.net.URLDecoder <font size="6">for whole URLs.</font>
+><font size="4">Do not use</font> java.net.URLEncoder or java.net.URLDecoder <font size="6">for whole URLs.</font>
 
 根据[Java API doc](http://download.java.net/jdk7/docs/api/java/net/URLEncoder.html)中所说，URLEncoder，URLDecoder:
 
 >Utility class for HTML form encoding. This class contains static methods for converting a String to the application/x-www-form-urlencoded MIME format.
 
-可以看出它不是用来对整个URL进行编码或解码的，最多只能够用来编码解码查询字符串(query part)；<font color="red" size="6">这就是导致许多人错误的使用URLencoder,URLDecoder对URL进行编码，解码。</font>
+可以看出它不是用来对整个URL进行编码或解码的，最多只能够用来编码解码查询字符串(query part)；<font color="red" size="4">这就是导致许多人错误的使用URLencoder,URLDecoder对URL进行编码，解码。</font>
 
 #### 构建URL时分别编码每一部分
 
