@@ -19,6 +19,7 @@ tags:
 2. URN是URI的一种，用特定命名空间的名字标识资源。使用URN可以在不知道其网络位置及访问方式的情况下讨论资源。
 
 例子：
+
 - URL： http://bitpoetry.io/posts/hello.html#intro， 其中http://是指访问资源的方式，bitpoetry.io/posts/hello.html是指访问资源的方式，#intro是资源所在的位置；
 - URL： http://bitpoetry.io/posts/hello.html，通过URL可以知道资源的位置；
 - URN： bitpoetry.io/posts/hello.html#intro，URN不包括访问方式；
