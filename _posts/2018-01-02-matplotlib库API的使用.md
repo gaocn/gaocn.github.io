@@ -574,9 +574,11 @@ plt.show()
 
 ### 5.2 范例2
 
-![snip_20180102130529](imgs/snip_20180102130529.png)
 
-```python
+![snip_20180102130529](/img/md_imgs/snip_20180102130529.png)
+
+
+```
 import matplotlib.pyplot as plt
 import numpy as np
 
