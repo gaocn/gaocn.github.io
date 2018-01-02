@@ -14,6 +14,7 @@ tags:
 # [Matplotlib](https://matplotlib.org/api/index.html)库的使用
 
 ##一、 [折线图](https://matplotlib.org/api/_as_gen/matplotlib.pyplot.plot.html#matplotlib.pyplot.plot)
+
 ```python
 from matplotlib import pyplot as plt
 
@@ -95,7 +96,7 @@ plt.show()
 ### 1.2 范例2
 
 
-![snip_20180102094859](img/md_imgs/snip_20180102094859.png)
+![snip_20180102094859](/img/md_imgs//snip_20180102094859.png)
 
 
 ```python
@@ -160,7 +161,7 @@ plt.show()
 ### 1.3 范例3
 
 
-![snip_20180102100241](img/md_imgs/snip_20180102100241.png)
+![snip_20180102100241](/img/md_imgs/snip_20180102100241.png)
 
 
 ```python
@@ -207,7 +208,7 @@ plt.show()
 
 ### 2.1 范例1
 
-![snip_20180102102605](img/md_imgs/snip_20180102102605.png)
+![snip_20180102102605](/img/md_imgs/snip_20180102102605.png)
 
 ```python
 import numpy as np
@@ -240,7 +241,7 @@ plt.show()
 
 ### 2.2 范例2
 
-![snip_20180102104526](img/md_imgs/snip_20180102104526.png)
+![snip_20180102104526](/img/md_imgs/snip_20180102104526.png)
 
 ```python
 import numpy as np
@@ -277,7 +278,7 @@ plt.show()
 
 ### 2.3 范例3
 
-![snip_20180102110156](img/md_imgs/snip_20180102110156.png)
+![snip_20180102110156](/img/md_imgs/snip_20180102110156.png)
 
 ```python
 import numpy as np
@@ -324,7 +325,7 @@ plt.show()
 
 ### 3.1 范例1
 
-![snip_20180102112219](img/md_imgs/snip_20180102112219.png)
+![snip_20180102112219](/img/md_imgs/snip_20180102112219.png)
 
 ```python
 import numpy as np
@@ -382,7 +383,7 @@ barh函数定义的一个长方形区域（left, right, bottom, top）为：$(le
 
 ### 4.1 范例1：系统监控
 
-![Animation](img/md_imgs/Animation.gif)
+![Animation](/img/md_imgs/Animation.gif)
 
 ```python
 import time
@@ -441,7 +442,7 @@ print("{fps:.1f} frames per second".format(fps=200 / (stop - start)))
 
 ### 4.2 范例2：Stacked Bar堆叠条形图
 
-![snip_20180102121457](img/md_imgs/snip_20180102121457.png)
+![snip_20180102121457](/img/md_imgs/snip_20180102121457.png)
 
 ```python
 import numpy as np
@@ -469,7 +470,7 @@ plt.show()
 
 ### 4.3 范例3：柱状图中显示表格
 
-![snip_20180102124039](img/md_imgs/snip_20180102124039.png)
+![snip_20180102124039](/img/md_imgs/snip_20180102124039.png)
 
 ```python
 import numpy as np
@@ -539,7 +540,7 @@ plt.show()
 
 ### 5.1 范例1
 
-![snip_20180102124816](img/md_imgs/snip_20180102124816.png)
+![snip_20180102124816](/img/md_imgs/snip_20180102124816.png)
 
 ```python
 import numpy as np
