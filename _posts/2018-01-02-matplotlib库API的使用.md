@@ -59,7 +59,7 @@ plt.show()
 
 ### 1.1 范例1
 
-![snip_20180102092308](img/md_imgs/snip_20180102092308.png)
+![snip_20180102092308](/img/md_imgs/snip_20180102092308.png)
 
 ```python
 import numpy as np
