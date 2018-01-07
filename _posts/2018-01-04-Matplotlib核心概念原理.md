@@ -48,7 +48,7 @@ canvas.print_figure('demo.jpg', dpi=400)
 
 在Matplotlib中`整个图像`为一个`Figure` 对象，在Figure对象中可以包含一个或者多个`Axes` 对象，每个Axes对象都是一个拥有自己坐标系统的的`绘图区域` 。可以将Figure理解为一个窗口，而而Axes才是真正的图。那么一个坐标系统Axes包含哪些内容呢，如下图所示：
 
-![axes](../img/md_imgs/axes.png)
+![axes](/img/md_imgs/axes.png)
 
 其中Title为图的标题，Axis为坐标轴（x坐标、y坐标），Axis Label为坐标轴标注（x坐标、y坐标），Tick为刻度线（x坐标、y坐标），Tick Label为刻度注释。隶属关系如下图所示：
 
@@ -138,7 +138,7 @@ pip install -U matplotlib
 
 > The Purpose of Data Visualization is to Convey Information to People.     ---- Pat Haranhan, Stanford
 
-![snip_20171231172528](../img/md_imgs/snip_20171231172528.png)
+![snip_20171231172528](/img/md_imgs/snip_20171231172528.png)
 
 可视化的设计原则，也成为编码方式（Visual Encoding）
 
