@@ -17,18 +17,22 @@ tags:
 
 ```python
 from matplotlib import pyplot as plt
+from numpy.random import randn
 
 # matplotlib.pyplot.rc(*args, **kwargs)设置默认值
 plt.rc('figure', figsize=(10, 6)) #设置默认的图的宽、高
 
+#创建一个figure对象，代表画布
 fig = plt.figure()
 ax1 = fig.add_subplot(2, 2, 1)
+#在figure对象上添加一个subplot返回一个subplot对象
 ax2 = fig.add_subplot(2, 2, 2)
+ax2.hist(randn(100), bins=20, color='k',alpha=.3)
 ax3 = fig.add_subplot(2, 2, 3)
 fig.show()
 
+
 #从正态分布中生成随机随机矩阵，random.randn(d0,d1, ...)
-from numpy.random import randn
 #ndarray.cumsum(axis=None)返回沿某一轴的累加和
 #默认将矩阵伸展为数组后进行累加
 #例如：a=[1,2,3] a.cumsum() = [1, 1+2, 1+2+3]
