@@ -6,8 +6,7 @@ date:       2016-12-16
 author:     "Govind"
 header-img: "img/post_bg/11.jpg"
 tags:
-    - Bridge Method
-	- Generics
+    - 泛型和桥
 ---
 
 
